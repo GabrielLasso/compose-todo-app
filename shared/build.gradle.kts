@@ -28,6 +28,10 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
+                val precomposeVersion = extra["precompose.version"] as String
+                api("moe.tlaster:precompose:$precomposeVersion")
+                api("moe.tlaster:precompose-viewmodel:$precomposeVersion")
             }
         }
         val androidMain by getting {
@@ -66,10 +70,10 @@ android {
         minSdk = (findProperty("android.minSdk") as String).toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 }
