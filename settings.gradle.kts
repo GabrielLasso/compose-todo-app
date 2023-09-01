@@ -1,7 +1,10 @@
 rootProject.name = "MyApplication"
 
-include(":androidApp")
 include(":shared")
+include(":backend")
+include(":sharedFrontend")
+include(":jvmMain")
+include(":androidApp")
 include(":desktopApp")
 
 pluginManagement {
@@ -35,3 +38,4 @@ dependencyResolutionManagement {
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
+include("backend")

@@ -4,7 +4,7 @@ import entity.Task
 import moe.tlaster.precompose.viewmodel.ViewModel
 import repository.TaskRepository
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel : ViewModel() {
     val tasks = TaskRepository.getTasks()
 
     fun onClickTask(task: Task) {

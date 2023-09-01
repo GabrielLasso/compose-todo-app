@@ -17,7 +17,7 @@ import viewmodel.HomeViewModel
 
 @Composable
 fun HomeScene(
-    onAdd: () -> Unit
+    onAdd: () -> Unit,
 ) {
     val viewModel = viewModel {
         HomeViewModel()
@@ -28,12 +28,12 @@ fun HomeScene(
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text("Tasks")
         for (task in tasks) {
             Row {
-                Checkbox(task.done, { viewModel.onClickTask(task)} )
+                Checkbox(task.done, { viewModel.onClickTask(task) })
                 Text(task.name)
                 Button({ viewModel.onClickDeleteTask(task) }) {
                     Text("Delete")

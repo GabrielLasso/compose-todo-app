@@ -15,12 +15,12 @@ fun App() {
         ) {
             scene("/home") {
                 HomeScene(
-                    onAdd = { navigator.navigate("/add") }
+                    onAdd = { navigator.navigate("/add") },
                 )
             }
             scene("/add") {
                 CreateTaskScene(
-                    onBack = { navigator.goBack() }
+                    onBack = { navigator.goBack() },
                 )
             }
         }

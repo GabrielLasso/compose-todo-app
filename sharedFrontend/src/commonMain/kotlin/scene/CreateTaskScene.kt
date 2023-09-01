@@ -12,7 +12,7 @@ import viewmodel.CreateTaskViewModel
 
 @Composable
 fun CreateTaskScene(
-    onBack: () -> Unit
+    onBack: () -> Unit,
 ) {
     val viewModel = viewModel {
         CreateTaskViewModel()
@@ -22,16 +22,20 @@ fun CreateTaskScene(
 
     Column {
         Text("Nova tarefa")
-        TextField(name,
+        TextField(
+            name,
             onValueChange = { viewModel.changeName(it) },
             placeholder = {
                 Text("Nome")
-            })
-        TextField(description,
+            },
+        )
+        TextField(
+            description,
             onValueChange = { viewModel.changeDescription(it) },
             placeholder = {
                 Text("Descrição")
-            })
+            },
+        )
         Button(onClick = {
             viewModel.save()
             onBack()

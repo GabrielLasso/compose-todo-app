@@ -1,12 +1,11 @@
 package viewmodel
 
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import moe.tlaster.precompose.viewmodel.ViewModel
 import repository.TaskRepository
 
-class CreateTaskViewModel: ViewModel() {
+class CreateTaskViewModel : ViewModel() {
     private val _name = MutableStateFlow("")
     val name = _name.asStateFlow()
     private val _description = MutableStateFlow("")
