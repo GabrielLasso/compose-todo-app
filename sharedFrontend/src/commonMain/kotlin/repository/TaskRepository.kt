@@ -1,37 +1,44 @@
 package repository
 
 import entity.Task
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import gateway.TaskGateway
+import io.ktor.client.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import kotlinx.serialization.json.Json
+import kotlin.coroutines.CoroutineContext
 
 object TaskRepository {
-    private val fakeDatabase = MutableStateFlow<List<Task>>(emptyList())
+    private val _tasks = MutableStateFlow(emptyList<Task>())
 
-    fun getTasks(): StateFlow<Collection<Task>> = fakeDatabase.asStateFlow()
+    val tasks = _tasks.asStateFlow()
 
-    fun createTask(name: String, description: String) {
-        val tasks = fakeDatabase.value.toMutableList()
-
-        tasks.add(Task(name, description, false))
-
-        fakeDatabase.value = tasks
+    suspend fun updateTasks() {
+        _tasks.emit(TaskGateway.getTasks().first())
     }
 
-    fun deleteTask(task: Task) {
-        val tasks = fakeDatabase.value.toMutableList()
-
-        tasks.remove(task)
-
-        fakeDatabase.value = tasks
+    suspend fun createTask(task: Task) {
+        TaskGateway.createTask(task)
+        _tasks.value += task
     }
 
-    fun toggleDone(task: Task) {
-        val tasks = fakeDatabase.value.toMutableList()
-
+    suspend fun toggleDone(task: Task) {
+        TaskGateway.toggleDone(task)
+        val tasks = _tasks.value.toMutableList()
         val index = tasks.indexOf(task)
-        tasks[index] = tasks[index].copy(done = !tasks[index].done)
+        tasks[index] = task.copy(done = !task.done)
+        _tasks.value = tasks
+    }
 
-        fakeDatabase.value = tasks
+    suspend fun deleteTask(task: Task) {
+        TaskGateway.deleteTask(task)
+        val tasks = _tasks.value.toMutableList()
+        val index = tasks.indexOf(task)
+        tasks.removeAt(index)
+        _tasks.value = tasks
     }
 }

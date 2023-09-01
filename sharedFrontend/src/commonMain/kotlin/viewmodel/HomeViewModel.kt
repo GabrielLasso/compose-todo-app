@@ -1,17 +1,31 @@
 package viewmodel
 
 import entity.Task
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 import repository.TaskRepository
 
 class HomeViewModel : ViewModel() {
-    val tasks = TaskRepository.getTasks()
+    val tasks = TaskRepository.tasks
+
+    init {
+        viewModelScope.launch {
+            TaskRepository.updateTasks()
+        }
+    }
 
     fun onClickTask(task: Task) {
-        TaskRepository.toggleDone(task)
+        viewModelScope.launch {
+            TaskRepository.toggleDone(task)
+        }
     }
 
     fun onClickDeleteTask(task: Task) {
-        TaskRepository.deleteTask(task)
+        viewModelScope.launch {
+            TaskRepository.deleteTask(task)
+        }
     }
 }

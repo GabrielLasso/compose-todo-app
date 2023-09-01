@@ -13,6 +13,7 @@ kotlin {
                 val ktorVersion = extra["ktor.version"] as String
                 implementation("io.ktor:ktor-server-core:$ktorVersion")
                 implementation("io.ktor:ktor-server-netty:$ktorVersion")
+                implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
             }
         }
     }

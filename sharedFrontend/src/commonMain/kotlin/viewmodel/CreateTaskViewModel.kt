@@ -1,8 +1,11 @@
 package viewmodel
 
+import entity.Task
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 import repository.TaskRepository
 
 class CreateTaskViewModel : ViewModel() {
@@ -20,6 +23,8 @@ class CreateTaskViewModel : ViewModel() {
     }
 
     fun save() {
-        TaskRepository.createTask(name.value, description.value)
+        viewModelScope.launch {
+            TaskRepository.createTask(Task(name.value, description.value, false))
+        }
     }
 }
