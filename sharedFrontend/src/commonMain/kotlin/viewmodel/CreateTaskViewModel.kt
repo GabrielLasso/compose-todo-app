@@ -8,7 +8,9 @@ import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
 import repository.TaskRepository
 
-class CreateTaskViewModel : ViewModel() {
+class CreateTaskViewModel(
+    private val taskRepository: TaskRepository
+) : ViewModel() {
     private val _name = MutableStateFlow("")
     val name = _name.asStateFlow()
     private val _description = MutableStateFlow("")
@@ -24,7 +26,7 @@ class CreateTaskViewModel : ViewModel() {
 
     fun save() {
         viewModelScope.launch {
-            TaskRepository.createTask(Task(name.value, description.value, false))
+            taskRepository.createTask(Task(name.value, description.value, false))
         }
     }
 }

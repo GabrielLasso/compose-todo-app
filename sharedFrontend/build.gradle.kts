@@ -35,9 +35,13 @@ kotlin {
                 val precomposeVersion = extra["precompose.version"] as String
                 api("moe.tlaster:precompose:$precomposeVersion")
                 api("moe.tlaster:precompose-viewmodel:$precomposeVersion")
+                api("moe.tlaster:precompose-koin:$precomposeVersion")
 
                 val ktorVersion = extra["ktor.version"] as String
                 api("io.ktor:ktor-client-core:$ktorVersion")
+
+                val koinComposeVersion = extra["koin-compose.version"] as String
+                api("io.insert-koin:koin-compose:$koinComposeVersion")
             }
         }
         val androidMain by getting {

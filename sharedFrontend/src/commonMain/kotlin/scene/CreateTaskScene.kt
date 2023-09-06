@@ -7,16 +7,14 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import moe.tlaster.precompose.viewmodel.viewModel
+import moe.tlaster.precompose.koin.koinViewModel
 import viewmodel.CreateTaskViewModel
 
 @Composable
 fun CreateTaskScene(
     onBack: () -> Unit,
 ) {
-    val viewModel = viewModel {
-        CreateTaskViewModel()
-    }
+    val viewModel = koinViewModel<CreateTaskViewModel>()
     val name by viewModel.name.collectAsState()
     val description by viewModel.description.collectAsState()
 

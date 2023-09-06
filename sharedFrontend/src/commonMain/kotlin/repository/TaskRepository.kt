@@ -12,22 +12,24 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlin.coroutines.CoroutineContext
 
-object TaskRepository {
+class TaskRepository(
+    private val gateway: TaskGateway
+) {
     private val _tasks = MutableStateFlow(emptyList<Task>())
 
     val tasks = _tasks.asStateFlow()
 
     suspend fun updateTasks() {
-        _tasks.emit(TaskGateway.getTasks().first())
+        _tasks.emit(gateway.getTasks().first())
     }
 
     suspend fun createTask(task: Task) {
-        TaskGateway.createTask(task)
+        gateway.createTask(task)
         _tasks.value += task
     }
 
     suspend fun toggleDone(task: Task) {
-        TaskGateway.toggleDone(task)
+        gateway.toggleDone(task)
         val tasks = _tasks.value.toMutableList()
         val index = tasks.indexOf(task)
         tasks[index] = task.copy(done = !task.done)
@@ -35,7 +37,7 @@ object TaskRepository {
     }
 
     suspend fun deleteTask(task: Task) {
-        TaskGateway.deleteTask(task)
+        gateway.deleteTask(task)
         val tasks = _tasks.value.toMutableList()
         val index = tasks.indexOf(task)
         tasks.removeAt(index)

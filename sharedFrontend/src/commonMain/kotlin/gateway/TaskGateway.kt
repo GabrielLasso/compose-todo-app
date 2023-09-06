@@ -9,7 +9,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 
-object TaskGateway {
+class TaskGateway {
     private val client = HttpClient {
         install(ContentNegotiation) {
             json()

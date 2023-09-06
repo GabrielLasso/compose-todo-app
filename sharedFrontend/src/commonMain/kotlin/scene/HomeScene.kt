@@ -12,17 +12,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import moe.tlaster.precompose.viewmodel.viewModel
+import moe.tlaster.precompose.koin.koinViewModel
 import viewmodel.HomeViewModel
 
 @Composable
 fun HomeScene(
     onAdd: () -> Unit,
 ) {
-    val viewModel = viewModel {
-        HomeViewModel()
-    }
-
+    val viewModel = koinViewModel<HomeViewModel>()
     val tasks by viewModel.tasks.collectAsState()
 
     Column(
