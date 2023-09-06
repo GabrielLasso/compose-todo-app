@@ -7,7 +7,7 @@ import moe.tlaster.precompose.viewmodel.viewModelScope
 import repository.TaskRepository
 
 class HomeViewModel(
-    private val taskRepository: TaskRepository
+    private val taskRepository: TaskRepository,
 ) : ViewModel() {
     val tasks = taskRepository.tasks
 

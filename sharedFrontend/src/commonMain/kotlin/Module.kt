@@ -20,6 +20,6 @@ fun initKoinModule() = startKoin {
             factory {
                 CreateTaskViewModel(get())
             }
-        }
+        },
     )
 }

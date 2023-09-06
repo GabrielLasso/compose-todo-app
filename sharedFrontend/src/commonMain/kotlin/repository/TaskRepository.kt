@@ -9,11 +9,9 @@ import io.ktor.client.statement.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.serialization.json.Json
-import kotlin.coroutines.CoroutineContext
 
 class TaskRepository(
-    private val gateway: TaskGateway
+    private val gateway: TaskGateway,
 ) {
     private val _tasks = MutableStateFlow(emptyList<Task>())
 
