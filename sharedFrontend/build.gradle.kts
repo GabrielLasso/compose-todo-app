@@ -22,59 +22,45 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
+        val desktopMain by getting
 
-                api(project(":shared"))
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.components.resources)
 
-                val precomposeVersion = extra["precompose.version"] as String
-                api("moe.tlaster:precompose:$precomposeVersion")
-                api("moe.tlaster:precompose-viewmodel:$precomposeVersion")
-                api("moe.tlaster:precompose-koin:$precomposeVersion")
+            api(project(":shared"))
 
-                val ktorVersion = extra["ktor.version"] as String
-                api("io.ktor:ktor-client-core:$ktorVersion")
+            val precomposeVersion = extra["precompose.version"] as String
+            api("moe.tlaster:precompose:$precomposeVersion")
+            api("moe.tlaster:precompose-viewmodel:$precomposeVersion")
+            api("moe.tlaster:precompose-koin:$precomposeVersion")
 
-                val koinComposeVersion = extra["koin-compose.version"] as String
-                api("io.insert-koin:koin-compose:$koinComposeVersion")
-            }
+            val ktorVersion = extra["ktor.version"] as String
+            api("io.ktor:ktor-client-core:$ktorVersion")
+
+            val koinComposeVersion = extra["koin-compose.version"] as String
+            api("io.insert-koin:koin-compose:$koinComposeVersion")
         }
-        val androidMain by getting {
-            dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.10.1")
+        androidMain.dependencies {
+            api("androidx.activity:activity-compose:1.8.0")
+            api("androidx.appcompat:appcompat:1.6.1")
+            api("androidx.core:core-ktx:1.12.0")
 
-                val ktorVersion = extra["ktor.version"] as String
-                api("io.ktor:ktor-client-okhttp:$ktorVersion")
-            }
+            val ktorVersion = extra["ktor.version"] as String
+            api("io.ktor:ktor-client-okhttp:$ktorVersion")
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-
-            dependencies {
-                val ktorVersion = extra["ktor.version"] as String
-                api("io.ktor:ktor-client-darwin:$ktorVersion")
-            }
+        iosMain.dependencies {
+            val ktorVersion = extra["ktor.version"] as String
+            api("io.ktor:ktor-client-darwin:$ktorVersion")
         }
-        val desktopMain by getting {
-            dependencies {
-                implementation(compose.desktop.common)
+        desktopMain.dependencies {
+            implementation(compose.desktop.common)
 
-                val ktorVersion = extra["ktor.version"] as String
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-            }
+            val ktorVersion = extra["ktor.version"] as String
+            implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
         }
     }
 }

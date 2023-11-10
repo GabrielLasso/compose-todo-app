@@ -14,9 +14,9 @@ import viewmodel.CreateTaskViewModel
 fun CreateTaskScene(
     onBack: () -> Unit,
 ) {
-    val viewModel = koinViewModel<CreateTaskViewModel>()
-    val name by viewModel.name.collectAsState()
-    val description by viewModel.description.collectAsState()
+    val viewModel = koinViewModel(CreateTaskViewModel::class)
+    val name = viewModel.name
+    val description = viewModel.description
 
     Column {
         Text("Nova tarefa")

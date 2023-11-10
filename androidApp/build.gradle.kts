@@ -7,16 +7,14 @@ plugins {
 kotlin {
     androidTarget()
     sourceSets {
-        val androidMain by getting {
-            dependencies {
-                implementation(project(":sharedFrontend"))
-            }
+        androidMain.dependencies {
+            implementation(project(":sharedFrontend"))
         }
     }
 }
 
 android {
-    compileSdkVersion((findProperty("android.compileSdk") as String).toInt())
+    compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = "com.myapplication"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")

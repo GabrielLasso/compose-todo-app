@@ -17,7 +17,7 @@ class TaskGateway {
     }
 
     suspend fun getTasks(): Flow<List<Task>> = channelFlow {
-        val response = client.get("http://localhost:8080/tasks").bodyAsText()
+        val response = client.get("http://10.0.2.2:8080/tasks").bodyAsText()
 
         val tasks = Json.decodeFromString<List<Task>>(response)
 
@@ -25,21 +25,21 @@ class TaskGateway {
     }
 
     suspend fun createTask(task: Task) {
-        client.post("http://localhost:8080/tasks") {
+        client.post("http://10.0.2.2:8080/tasks") {
             header("Content-Type", "application/json")
             setBody(task)
         }
     }
 
     suspend fun deleteTask(task: Task) {
-        client.delete("http://localhost:8080/tasks") {
+        client.delete("http://10.0.2.2:8080/tasks") {
             header("Content-Type", "application/json")
             setBody(task)
         }
     }
 
     suspend fun toggleDone(task: Task) {
-        client.post("http://localhost:8080/tasks/toggle") {
+        client.post("http://10.0.2.2:8080/tasks/toggle") {
             header("Content-Type", "application/json")
             setBody(task)
         }

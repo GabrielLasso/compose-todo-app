@@ -18,18 +18,16 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                val serializationVersion = extra["serialization.version"] as String
-                api("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+        commonMain.dependencies {
+            val serializationVersion = extra["serialization.version"] as String
+            api("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
 
-                val ktorVersion = extra["ktor.version"] as String
-                api("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+            val ktorVersion = extra["ktor.version"] as String
+            api("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+            api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
 
-                val koinVersion = extra["koin.version"] as String
-                api("io.insert-koin:koin-core:$koinVersion")
-            }
+            val koinVersion = extra["koin.version"] as String
+            api("io.insert-koin:koin-core:$koinVersion")
         }
     }
 }

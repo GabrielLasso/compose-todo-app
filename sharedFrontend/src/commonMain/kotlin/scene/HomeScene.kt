@@ -19,7 +19,7 @@ import viewmodel.HomeViewModel
 fun HomeScene(
     onAdd: () -> Unit,
 ) {
-    val viewModel = koinViewModel<HomeViewModel>()
+    val viewModel = koinViewModel(HomeViewModel::class)
     val tasks by viewModel.tasks.collectAsState()
 
     Column(
